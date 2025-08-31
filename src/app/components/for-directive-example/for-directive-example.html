@@ -1,0 +1,7 @@
+<h4 class="text-xl font-semibold">{{'@for'}} Directive Example</h4>
+
+<div class="flex flex-wrap whitespace-nowrap gap-2">
+    @for (user of users; track user) {
+        <app-person-table [personInput] = 'user'></app-person-table>
+    }
+</div>

@@ -1,0 +1,55 @@
+@if (!personInput) {
+  <div class="bg-red-500 text-white text-center px-4 py-3 rounded">
+    No Person Details
+  </div>
+} @else {
+<div>
+    <!-- <h1 class="text-xl font-bold">From person table component</h1> -->
+  <!-- <h1 class="text-3xl font-bold">From person table component</h1>
+  <table class="table table-bordered w-50">
+    <caption>Person Details</caption>
+    <tr class="border-b border-gray-300">
+      <td class="font-semibold text-right pr-2">First Name</td>
+      <td class="pl-2">{{ person.firstName }}</td>
+    </tr>
+    <tr class="border-b border-gray-300">
+      <td class="font-semibold text-right pr-2">Last Name</td>
+      <td class="pl-2">{{ person.lastName }}</td>
+    </tr>
+    <tr class="border-b border-gray-300">
+      <td class="font-semibold text-right pr-2">Age</td>
+      <td class="pl-2">{{ person.age }}</td>
+    </tr>
+    <tr>
+      <td class="font-semibold text-right pr-2">E-mail</td>
+      <td class="pl-2">{{ person.email }}</td>
+    </tr>
+  </table> -->
+
+  <table class="table table-bordered w-50">
+    <caption>Person Details</caption>
+    <tr class="border-b border-gray-300">
+      <td class="font-semibold text-right pr-2">First Name</td>
+      <td class="pl-2">{{ personInput!.firstName }}</td>
+    </tr>
+    <tr class="border-b border-gray-300">
+      <td class="font-semibold text-right pr-2">Last Name</td>
+      <td class="pl-2">{{ personInput!.lastName }}</td>
+    </tr>
+    <tr class="border-b border-gray-300">
+      <td class="font-semibold text-right pr-2">Age</td>
+      <td class="pl-2">{{ personInput!.age }}</td>
+    </tr>
+    <tr>
+      <td class="font-semibold text-right pr-2">E-mail</td>
+      <td class="pl-2">{{ personInput!.email }}</td>
+    </tr>
+    <tr>
+      <td class="font-semibold text-right pr-2">
+        {{ (isPerson() && "Address") || "Education" }}
+      </td>
+      <td class="pl-2">{{ addressOReducation }}</td>
+    </tr>
+  </table>
+</div>
+}

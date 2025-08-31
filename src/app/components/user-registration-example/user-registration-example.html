@@ -1,0 +1,129 @@
+<h4 class="text-lg font-semibold">User Registration Example</h4>
+
+@if (registrationStatus.message === 'Not attempted yet.') {
+    <div class="flex flex-col mt-2 w-1/2">
+        <form [formGroup]="form" class="flex flex-col">
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput type="text" formControlName="username" (blur)="checkDuplicateUsername()">
+                @if(form.get('username')?.hasError('duplicateUsername')) {
+                    <mat-error>This username already exists.</mat-error>
+                } @else if(form.get('username')?.invalid && form.get('username')?.touched) {
+                    <mat-error>"Username" is a required field.</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+                @if (form.get('password')?.invalid && form.get('password')?.touched) {
+                    <mat-error>Password is missing or invalid.</mat-error>
+                }
+                <mat-error>"Password" is a required field.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" formControlName="confirmPassword">
+                @if (form.get('confirmPassword')?.hasError('passwordMismatch')) {
+                    <mat-error>Passwords do not match.</mat-error>
+                } @else if (form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched) {
+                    <mat-error>"Confirm Password" is missing or invalid.</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" formControlName="firstName">
+                <mat-error>"First Name" is a required field.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" formControlName="lastName">
+                <mat-error>"Last Name" is a required field.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>E-mail</mat-label>
+                <input matInput type="text" formControlName="email" (blur)="checkDuplicateEmail()">
+                @if(form.get('email')?.hasError('duplicateEmail')) {
+                    <mat-error>This e-mail already exists.</mat-error>
+                } @else if (form.get('email')?.invalid && form.get('email')?.touched) {
+                    <mat-error>"E-mail" is a required field.</mat-error>
+                }
+            </mat-form-field>
+            <div class="flex gap-2" formGroupName="address">
+                <mat-form-field>
+                    <mat-label>Address - Area</mat-label>
+                    <input matInput type="text" formControlName="area">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Address - Road</mat-label>
+                    <input matInput type="text" formControlName="road">
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gap-2" formArrayName="phone">
+                @for (p of phone.controls; let i = $index; track i) {
+                <div [formGroupName]="i" class="flex gap-3 items-center">
+                    <mat-form-field>
+                        <mat-label>Phone Number</mat-label>
+                        <input type="text" matInput formControlName="number">
+                        <mat-error>"Phone Number" is a required field.</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <mat-label>Phone Type</mat-label>
+                        <mat-select formControlName="type">
+                            <mat-option value="Mobile">Mobile</mat-option>
+                            <mat-option value="Home">Home</mat-option>
+                            <mat-option value="Work">Work</mat-option>
+                        </mat-select>
+                        <mat-error>"Phone Type" is a required field.</mat-error>
+                    </mat-form-field>
+                    <div class="flex flex-col justify-center ml-2 gap-1">
+                        @if (phone.controls.length>1 && i !==0 ) {
+                        <mat-icon role="button" class="cursor-pointer hover:scale-110 transition-transform"
+                            (click)="removePhoneNumber(i)">
+                            delete
+                        </mat-icon>
+                        }
+            
+                        @if (phone.controls[i].valid ) {
+                        <mat-icon role="button" class="cursor-pointer hover:scale-110 transition-transform"
+                            (click)="addPhoneNumber()">
+                            add
+                        </mat-icon>
+                        {{i}}
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+
+            <button
+            mat-flat-button
+            color="primary"
+            [disabled]="form.invalid"
+            (click)="onSubmit()"
+            >
+                Register
+            </button>
+        </form>
+    </div>
+} @else {
+    @if (registrationStatus.success) {
+        <div class="bg-green-100 text-green-800 border border-green-300 rounded p-2 mt-2 w-1/2">
+            <strong>Success:</strong> {{registrationStatus.message}}
+        </div>
+    } @else {
+        <div class="bg-red-100 text-red-800 border border-red-300 rounded p-2 mt-2 w-1/2">
+            <strong>Error:</strong> {{registrationStatus.message}}
+        </div>
+    }
+}
+
+<button mat-flat-button color="primary" class="mt-3" (click)="registerAnother()">
+    Register Another User
+</button>

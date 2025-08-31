@@ -1,0 +1,24 @@
+<h4 class="text-xl font-semibold">Simple Datatable Example</h4>
+<table class="w-full border border-gray-300 text-sm text-gray-700">
+  <thead>
+    <tr class="bg-gray-100 text-center align-middle text-xs">
+      <th role="button" (click)="sortData('firstName')" class="border border-gray-300 px-3 py-2">First Name {{sortSign('firstName')}}</th>
+      <th role="button" (click)="sortData('lastName')" class="border border-gray-300 px-3 py-2">Last Name {{sortSign('lastName')}}</th>
+      <th role="button" (click)="sortData('age')" class="border border-gray-300 px-3 py-2">Age {{sortSign('age')}}</th>
+      <th role="button" (click)="sortData('email')" class="border border-gray-300 px-3 py-2">Email {{sortSign('email')}}</th>
+      <th role="button" (click)="sortData('education')" class="border border-gray-300 px-3 py-2">Education {{sortSign('firstName')}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of epersonsData; track row) {
+      <tr class="even:bg-gray-50 odd:bg-white align-middle"
+      (dblclick)="onPersonClicked(row)">
+        <td class="border border-gray-300 px-3 py-2">{{row.firstName}}</td>
+        <td class="border border-gray-300 px-3 py-2">{{row.lastName}}</td>
+        <td class="border border-gray-300 px-3 py-2">{{row.age}}</td>
+        <td class="border border-gray-300 px-3 py-2">{{row.email}}</td>
+        <td class="border border-gray-300 px-3 py-2">{{row.education}}</td>
+      </tr>
+    }
+  </tbody>
+</table>

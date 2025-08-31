@@ -1,0 +1,91 @@
+<div class="flex flex-col">
+    <h5 class="text-base font-semibold">New Person Form</h5>
+    <!-- #eform: like name - ngForm: it's an Angular form" - ngModel: part of ngForm, #firstName="ngModel": ngForm firstName input name-->
+    <form #eForm="ngForm" class="flex flex-col">
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input
+            matInput
+            ngModel
+            required
+            type="text"
+            name="firstName"
+            #firstName="ngModel"
+        >
+        <mat-error>"First Name" is a required field.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input
+            matInput
+            ngModel
+            required
+            type="text"
+            name="lastName"
+            #givenName="ngModel"
+        >
+        <mat-error>"Last Name" is a required field.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Age</mat-label>
+            <input
+            matInput
+            ngModel
+            required
+            type="number"
+            min="18"
+            max="100"
+            name="age"
+            #age="ngModel"
+        >
+        <mat-error>"Age" is a required field.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input
+            matInput
+            ngModel
+            required
+            type="text"
+            name="email"
+            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            #email="ngModel"
+        >
+        @if (email.errors && email.errors['required']) {
+        <mat-error>"E-mail" is a required field.</mat-error>
+        }
+        @if (email.errors && email.errors['pattern']) {
+            <mat-error>Invalid e-mail</mat-error>
+        }
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Education</mat-label>
+            <mat-select
+            required
+            ngModel
+            name="education"
+            #educaton="ngModel"
+            >
+                <mat-option value="Master's degree">
+                    Master's degree
+                </mat-option>
+                <mat-option value="Bachelor's degree">
+                    Bachelor's degree
+                </mat-option>
+                <mat-option value="Some college, no degree">
+                    Some college, no degree
+                </mat-option>
+                <mat-option value="No formal education">
+                    No formal education
+                </mat-option>
+            </mat-select>
+            <mat-error>"Education" is a required field.</mat-error>
+        </mat-form-field>
+    </form>
+    <button mat-flat-button
+    [disabled]="eForm.invalid"
+    (click)="onSubmit(eForm.value)"
+    color="primary">Submit</button>
+    <button class="mt-4 bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded hover:bg-gray-400 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-colors" (click)="onSetValue()">Set Value</button>
+    <!-- {{ eForm.value | json }} -->
+</div>
